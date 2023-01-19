@@ -1,57 +1,40 @@
-# Project Name
+# PowerBI Incremental Update Article
 
-(short, 1-3 sentenced, description of the project)
+This repo contains the assets for the Power PBI Incremental refresh Blog Post
 
-## Features
+## Content
 
-This project framework provides the following features:
+### ./Cosmos Provisioning
 
-* Feature 1
-* Feature 2
-* ...
+This file will provision the Azure Resource Group and Cosmos Database.
 
-## Getting Started
+![](./images/provision.jpg )
 
-### Prerequisites
+ Once this is provisioned, you will need to access the Cosmos Database for the Host Name and Key for access.  This information needs to be filled in the the cosmosLoader.py program located in the cosmos-loader sub-directory.
 
-(ideally very short, if any)
+![](./images/load-db.jpg )
 
-- OS
-- Library version
-- ...
+### ./cosmos-loader
 
-### Installation
+I used 2 shells, WSL (Ubuntu) and Powershell in Visual Studio code.  Run "pip install -r requirements.txt" to install your python dependency. Then edit the cosmosLoader.py to provide the FULL file location of out.json (in the ./data sub-directory), the Cosmos Host URL, and Cosmos key for access.  Then run the program to load 1000 records to use with Power BI. ![Load Data Check]
 
-(ideally very short)
+![](./images/sanity-check.jpg )
 
-- npm install [package name]
-- mvn install
-- ...
+### ./data-generation -
 
-### Quickstart
-(Add steps to get up and running quickly)
+This directory contains the mgenerate.js template that is capable of generating simulated data.  Find [mgenerate.js here](https://github.com/rueckstiess/mgeneratejs)
 
-1. git clone [repository clone url]
-2. cd [repository name]
-3. ...
+### ./data -
 
+This is a directory that contains 2 JSON arrays of pre-generated data, both with 1000 documents.  out.json is a JSON Array, this file is used by the python program that loads the data.  Out.json is a derivitive of sample_data_1000.json -- processed with UNIX sed to add a comma at the end of each json document (end of line), and adding "[]" in the beginning and end of the document--making this a syntactically correct json array.
 
-## Demo
+## ./PBI -
 
-A demo app is included to show how to use the project.
+This contains the Power BI Desktop file that is saved in a ZIP format--unzip it, and read the directions in that directory.  
 
-To run the demo, follow these steps:
+Power BI desktop can only be run on Windows architectures.  The Desktop App is a free download.  You can also get a [free Power BI System account](https://powerbi.microsoft.com/) - .  The PBIX file can be uploaded to Power BI system or opened in PowerBI desktop.  
 
-(Add steps to start up the demo)
+The more interesting part of the PBI desktop file can be found in the Power Query Editor (PQE) (Started from the "Transform Data option on the Home Ribbon).  The PQE shows the steps to flatten the embedded document for reporting--all in place.  All of the detailed steps are contained on the right pane in the PQE editor.
 
-1.
-2.
-3.
+![](./images/PQE.jpg )
 
-## Resources
-
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
